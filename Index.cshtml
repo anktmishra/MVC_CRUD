@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MVC_CRUD.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .edt{
+        background:red;
+        color:white;
+    }
+    .dlt {
+        color: white;
+        background: green;
+    }
+</style>
+<h1>Index</h1>
+
+<p>
+    <a asp-controller="Student" asp-action="CreateStudent">Add New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mobile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeptId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeptId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.ActionLink("Edit" , "Create", new {id=item.Id,item.Name,item.Email,item.Mobile
+           ,item.Description,item.DeptId,item.Department}, new {@class="edt"})
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new {@class="dlt",
+               onclick="return confirm('Do you want to delete this record permanantly')"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
